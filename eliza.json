@@ -1,0 +1,73 @@
+{
+    "keywords": [
+        {
+            "word": "NOTFOUND",
+            "weight": 0,
+            "responses": [
+                "What does that suggest to you?",
+                "I see.",
+                "I'm not sure I understand you fully.",
+                "Can you elaborate?",
+                "That is quite interesting.",
+                "Please tell me more.",
+                "Let's change focus a bit... Tell me about your family.",
+                "Can you elaborate on that?",
+                "Why do you say that *?"
+            ]
+        },
+        {
+            "word": "sorry",
+            "weight": 1,
+            "responses": [
+                "Please don't apologize.",
+                "Apologies are not necessary.",
+                "Apologies are not required."
+            ]
+        },
+        {
+            "word": "always",
+            "weight": 1,
+            "responses": [
+                "Can you think of a specific example?"
+            ]
+        },
+        {
+            "word": "because",
+            "weight": 6,
+            "responses": [
+                "Is that the real reason?"
+            ]
+        },
+        {
+            "word": "maybe",
+            "weight": 1,
+            "responses": [
+                "You  don't seem very certain."
+            ]
+        },
+        {
+            "word": "I think",
+            "weight": 2,
+            "responses": [
+                "Do you really think so?"
+            ]
+        },
+        {
+            "word": "you",
+            "weight": 1,
+            "responses": [
+                "We were discussing you, not me.",
+                "Why do you say that about me?",
+                "Why do you care whether I \"*\"?"
+            ]
+        },
+        {
+            "word": "yes",
+            "weight": 1,
+            "responses": [
+                "Why do you think so?",
+                "You seem quite positive."
+            ]
+        }
+    ]
+}

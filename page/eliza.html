@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Eliza Chat-Bot</title>
+    <title>Eliza</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,8 +77,9 @@
         }
 
         .frame {
+            margin-top: 10%;
             background: #e0e0de;
-            height: 450px;
+            height: 500px;
             overflow: hidden;
             padding: 0;
         }
@@ -179,8 +180,9 @@
 </head>
 
 <body>
-    <div class="conatiner">
-        <div class="col-md-6 col-sm-offset-4 frame">
+
+    <div align="center">
+        <div class="col-md-6 frame">
             <ul class="scrollbar"></ul>
             <div>
                 <div class="msj-rta macro" style="margin:auto">
@@ -190,8 +192,9 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -232,8 +235,8 @@
                     '<div class="msj macro">' +
                     '<div class="avatar"><img class="img-circle" style="width:100%;" src="' + me.avatar + '" /></div>' +
                     '<div class="text text-l">' +
-                    '<p>' + text + '</p>' +
-                    '<p><small>' + "You: " + date + '</small></p>' +
+                    '<p class="text-left">' + text + '</p>' +
+                    '<p class="text-left"><small>' + "You: " + date + '</small></p>' +
                     '</div>' +
                     '</div>' +
                     '</li>';
@@ -241,8 +244,8 @@
                 control = '<li style="width:100%;">' +
                     '<div class="msj-rta macro">' +
                     '<div class="text text-r">' +
-                    '<p>' + text + '</p>' +
-                    '<p><small>' + "Eliza: " + date + '</small></p>' +
+                    '<p class="text-right">' + text + '</p>' +
+                    '<p class="text-right"><small>' + "Eliza: " + date + '</small></p>' +
                     '</div>' +
                     '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="' + you.avatar + '" /></div>' +
                     '</li>';
