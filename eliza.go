@@ -11,8 +11,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
+	"regexp"
 )
+
+type keywords struct {
+	Keyword []keyword `json:"keywords"`
+}
+
+type keyword struct {
+	Word      string   `json:"word"`
+	Responses []string `json:"responses"`
+}
 
 var defualtResponses = []string{
 	"Please tell me more.",
@@ -21,8 +32,8 @@ var defualtResponses = []string{
 	"I see.",
 	"Very interesting.",
 	"I see. And what does that tell you?",
-	"How does that make you fell?",
-	"How do you fell when you say that?",
+	"How does that make you feel?",
+	"How do you feel when you say that?",
 }
 
 var reflections = map[string]string{
@@ -42,99 +53,46 @@ var reflections = map[string]string{
 	"me":     "you",
 }
 
-type keywords struct {
-	Keyword []keyword `json:"keywords"`
-}
-
-type keyword struct {
-	Word      string   `json:"word"`
-	Weight    int      `json:"weight"`
-	Responses []string `json:"responses"`
-}
-
-func readFile() {
+func parseKeywords() keywords {
 	file, err := ioutil.ReadFile("./eliza.json")
 	if err != nil {
 		fmt.Printf("File error: %v\n", err)
 	}
 
-	var jsontype keywords
-	json.Unmarshal(file, &jsontype)
-	fmt.Printf("Results: %v\n", jsontype)
+	listKeywords := keywords{}
+	_ = json.Unmarshal(file, &listKeywords)
+
+	return listKeywords
 }
 
-// func askEliza(input string) string {
+func askEliza(input string) string {
+	list := parseKeywords()
 
-// }
+	for _, responses := range list.Keyword {
+		re := regexp.MustCompile(responses.Word)
+		matches := re.FindStringSubmatch(input)
 
-// ReplyTo will construct a reply for a given statement using ELIZA's rules.
-// func ReplyTo(statement string) string {
-// 	// First, preprocess the statement for more effective matching
-// 	statement = preprocess(statement)
+		if len(matches) > 0 {
+			response := randChoice(responses.Responses)
 
-// 	// Next, we try to match the statement to a statement that ELIZA can
-// 	// recognize, and construct a pre-determined, appropriate response.
-// 	for pattern, responses := range Psychobabble {
-// 		re := regexp.MustCompile(pattern)
-// 		matches := re.FindStringSubmatch(statement)
+			return response
+		}
+	}
 
-// 		// If the statement matched any recognizable statements.
-// 		if len(matches) > 0 {
-// 			// If we matched a regex group in parentheses, get the first match.
-// 			// The matched regex group will match a "fragment" that will form
-// 			// part of the response, for added realism.
-// 			var fragment string
-// 			if len(matches) > 1 {
-// 				fragment = reflect(matches[1])
-// 			}
-
-// 			// Choose a random appropriate response, and format it with the
-// 			// fragment, if needed.
-// 			response := randChoice(responses)
-// 			if strings.Contains(response, "%s") {
-// 				response = fmt.Sprintf(response, fragment)
-// 			}
-// 			return response
-// 		}
-// 	}
-
-// 	// If no patterns were matched, return a default response.
-// 	return randChoice(DefaultResponses)
-// }
-
-// // preprocess will do some normalization on a statement for better regex matching
-// func preprocess(statement string) string {
-// 	statement = strings.TrimRight(statement, "\n.!")
-// 	statement = strings.ToLower(statement)
-// 	return statement
-// }
-
-// // reflect flips a few words in an input fragment (such as "I" -> "you").
-// func reflect(fragment string) string {
-// 	words := strings.Split(fragment, " ")
-// 	for i, word := range words {
-// 		if reflectedWord, ok := Reflections[word]; ok {
-// 			words[i] = reflectedWord
-// 		}
-// 	}
-// 	return strings.Join(words, " ")
-// }
-
-// // randChoice returns a random element in an (string) array.
-// func randChoice(list []string) string {
-// 	randIndex := rand.Intn(len(list))
-// 	return list[randIndex]
-// }
+	return randChoice(defualtResponses)
+}
+func randChoice(list []string) string {
+	randIndex := rand.Intn(len(list))
+	return list[randIndex]
+}
 
 func chatWindow(w http.ResponseWriter, r *http.Request) {
-	//get the string from the input box
-	// userSent := r.Header.Get("userAskEliza")
+	userSent := r.Header.Get("userAskEliza")
 
-	// fmt.Fprintf(w, ReplyTo(userSent))
+	fmt.Fprintf(w, askEliza(userSent))
 }
 
 func main() {
-	readFile()
 	http.HandleFunc("/askEliza", chatWindow)
 	http.Handle("/", http.FileServer(http.Dir("./page")))
 	http.ListenAndServe(":8080", nil)

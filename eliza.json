@@ -1,72 +1,188 @@
 {
     "keywords": [
         {
-            "word": "NOTFOUND",
-            "weight": 0,
+            "word": "i need (.*)",
             "responses": [
-                "What does that suggest to you?",
-                "I see.",
-                "I'm not sure I understand you fully.",
-                "Can you elaborate?",
-                "That is quite interesting.",
-                "Please tell me more.",
-                "Let's change focus a bit... Tell me about your family.",
-                "Can you elaborate on that?",
-                "Why do you say that *?"
+                "Why do you need %s?",
+                "Would it really help you to get %s?",
+                "Are you sure you need %s?"
             ]
         },
         {
-            "word": "sorry",
-            "weight": 1,
+            "word": "why don'?t you ([^\\?]*)\\??",
             "responses": [
-                "Please don't apologize.",
-                "Apologies are not necessary.",
-                "Apologies are not required."
+                "Do you really think I don't %s?",
+                "Perhaps eventually I will %s.",
+                "Do you really want me to %s?"
             ]
         },
         {
-            "word": "always",
-            "weight": 1,
+            "word": "why can'?t I ([^\\?]*)\\??",
             "responses": [
-                "Can you think of a specific example?"
+                "Do you think you should be able to %s?",
+                "If you could %s, what would you do?",
+                "I don't know -- why can't you %s?",
+                "Have you really tried?"
             ]
         },
         {
-            "word": "because",
-            "weight": 6,
+            "word": "i can'?t (.*)",
             "responses": [
-                "Is that the real reason?"
+                "How do you know you can't %s?",
+                "Perhaps you could %s if you tried.",
+                "What would it take for you to %s?"
             ]
         },
         {
-            "word": "maybe",
-            "weight": 1,
+            "word": "i am (.*)",
             "responses": [
-                "You  don't seem very certain."
+                "Did you come to me because you are %s?",
+                "How long have you been %s?",
+                "How do you feel about being %s?"
             ]
         },
         {
-            "word": "I think",
-            "weight": 2,
+            "word": "i'?m (.*)",
             "responses": [
-                "Do you really think so?"
+                "How does being %s make you feel?",
+                "Do you enjoy being %s?",
+                "Why do you tell me you're %s?",
+                "Why do you think you're %s?"
             ]
         },
         {
-            "word": "you",
-            "weight": 1,
+            "word": "are you ([^\\?]*)\\??",
             "responses": [
-                "We were discussing you, not me.",
-                "Why do you say that about me?",
-                "Why do you care whether I \"*\"?"
+                "Why does it matter whether I am %s?",
+                "Would you prefer it if I were not %s?",
+                "Perhaps you believe I am %s.",
+                "I may be %s -- what do you think?"
+            ]
+        },
+        {
+            "word": "what (.*)",
+            "responses": [
+                "Why do you ask?",
+                "How would an answer to that help you?",
+                "What do you think?"
+            ]
+        },
+        {
+            "word": "how (.*)",
+            "responses": [
+                "How do you suppose?",
+                "Perhaps you can answer your own question.",
+                "What is it you're really asking?"
+            ]
+        },
+        {
+            "word": "because (.*)",
+            "responses": [
+                "Is that the real reason?",
+                "What other reasons come to mind?",
+                "Does that reason apply to anything else?",
+                "If %s, what else must be true?"
+            ]
+        },
+        {
+            "word": "(.*) sorry (.*)",
+            "responses": [
+                "There are many times when no apology is needed.",
+                "What feelings do you have when you apologize?"
+            ]
+        },
+        {
+            "word": "^hello(.*)",
+            "responses": [
+                "Hello... I'm glad you could drop by today.",
+                "Hi there... how are you today?",
+                "Hello, how are you feeling today?"
+            ]
+        },
+        {
+            "word": "^thanks(.*)",
+            "responses": [
+                "You're welcome!",
+                "Anytime!"
+            ]
+        },
+        {
+            "word": "^thank you(.*)",
+            "responses": [
+                "You're welcome!",
+                "Anytime!"
+            ]
+        },
+        {
+            "word": "^good morning(.*)",
+            "responses": [
+                "Good morning... I'm glad you could drop by today.",
+                "Good morning... how are you today?",
+                "Good morning, how are you feeling today?"
+            ]
+        },
+        {
+            "word": "^good afternoon(.*)",
+            "responses": [
+                "Good afternoon... I'm glad you could drop by today.",
+                "Good afternoon... how are you today?",
+                "Good afternoon, how are you feeling today?"
+            ]
+        },
+        {
+            "word": "I think (.*)",
+            "responses": [
+                "Do you doubt %s?",
+                "Do you really think so?",
+                "But you're not sure %s?"
+            ]
+        },
+        {
+            "word": "(.*) friend (.*)",
+            "responses": [
+                "Tell me more about your friends.",
+                "When you think of a friend, what comes to mind?",
+                "Why don't you tell me about a childhood friend?"
             ]
         },
         {
             "word": "yes",
-            "weight": 1,
             "responses": [
-                "Why do you think so?",
-                "You seem quite positive."
+                "You seem quite sure.",
+                "OK, but can you elaborate a bit?"
+            ]
+        },
+        {
+            "word": "(.*) computer(.*)",
+            "responses": [
+                "Are you really talking about me?",
+                "Does it seem strange to talk to a computer?",
+                "How do computers make you feel?",
+                "Do you feel threatened by computers?"
+            ]
+        },
+        {
+            "word": "is it (.*)",
+            "responses": [
+                "Do you think it is %s?",
+                "Perhaps it's %s -- what do you think?",
+                "If it were %s, what would you do?",
+                "It could well be that %s."
+            ]
+        },
+        {
+            "word": "it is (.*)",
+            "responses": [
+                "You seem very certain.",
+                "If I told you that it probably isn't %s, what would you feel?"
+            ]
+        },
+        {
+            "word": "can you ([^\\?]*)\\??",
+            "responses": [
+                "What makes you think I can't %s?",
+                "If I could %s, then what?",
+                "Why do you ask if I can %s?"
             ]
         }
     ]
