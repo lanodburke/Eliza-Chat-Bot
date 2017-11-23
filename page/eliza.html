@@ -180,7 +180,6 @@
 </head>
 
 <body>
-
     <div align="center">
         <div class="col-md-6 frame">
             <ul class="scrollbar"></ul>
@@ -193,8 +192,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -230,7 +227,6 @@
             var date = formatAMPM(new Date());
 
             if (who == "me") {
-
                 control = '<li style="width:100%">' +
                     '<div class="msj macro">' +
                     '<div class="avatar"><img class="img-circle" style="width:100%;" src="' + me.avatar + '" /></div>' +
@@ -253,7 +249,7 @@
             setTimeout(
                 function () {
                     $("ul").append(control);
-                    $("ul").animate({ scrollTop: $("ul").prop('scrollHeight') }, 300);
+                    $("ul").animate({ scrollTop: $("ul").prop('scrollHeight') }, 500);
                 }, time);
         }
 
@@ -265,35 +261,17 @@
             if (e.which == 13) {
                 var text = document.getElementById("mytext").value;
                 if (text !== "") {
-                    insertChat("me", text);
-                    askEliza(text);
+                    insertChat("me", text, 200);
+                    $.get('/user-input', { value: $('#mytext').val() })
+                        .done(function (data) {
+                            insertChat("you", data, 700)
+                        })
                     $(this).val('');
                 }
             }
         });
 
-        //-- Clear Chat
         resetChat();
-
-        //-- Print Messages
-
-        function askEliza(text) {
-            var xhr = new XMLHttpRequest();
-            //this prints the question and elizas response 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    insertChat("you", xhr.responseText);
-                }
-            }
-
-            //open it 
-            xhr.open("POST", "/askEliza");
-            xhr.setRequestHeader("Cache-Control", "no-cache");
-            console.log(text);
-            xhr.setRequestHeader("userAskEliza", text);
-            //send it 
-            xhr.send()
-        }
     </script>
 
 </body>

@@ -123,13 +123,12 @@ func reflection(input string) string {
 }
 
 func chatWindow(w http.ResponseWriter, r *http.Request) {
-	userSent := r.Header.Get("userAskEliza")
-
-	fmt.Fprintf(w, askEliza(userSent))
+	input := r.URL.Query().Get("value")
+	fmt.Fprintf(w, askEliza(input))
 }
 
 func main() {
-	http.HandleFunc("/askEliza", chatWindow)
+	http.HandleFunc("/user-input", chatWindow)
 	http.Handle("/", http.FileServer(http.Dir("./page")))
 	http.ListenAndServe(":8080", nil)
 }
