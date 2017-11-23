@@ -128,7 +128,8 @@ func chatWindow(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/", fs)
 	http.HandleFunc("/user-input", chatWindow)
-	http.Handle("/", http.FileServer(http.Dir("./page")))
 	http.ListenAndServe(":8080", nil)
 }
