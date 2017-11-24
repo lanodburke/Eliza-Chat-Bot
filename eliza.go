@@ -1,37 +1,38 @@
 package main
 
 // Donal Burke - G00337729
-/* sources
----------------
-https://bootsnipp.com/snippets/WaEvr - chat template
----------------
-*/
 
+// list of imports
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 )
 
+// object that json data will be read into
 type jsonobject struct {
 	Keyword      []keyword      `json:"responses"`
 	Substitution []substitution `json:"substitutions"`
 }
 
+// substitution struct to store regex pattern and a response to replace it with
 type substitution struct {
 	Word     string `json:"word"`
 	Response string `json:"response"`
 }
 
+// keyword struct to hold regex pattern and list of responses
 type keyword struct {
 	Word      string   `json:"word"`
 	Responses []string `json:"responses"`
 }
 
+// list of default responses
 var defualtResponses = []string{
 	"Please tell me more.",
 	"Let's change focus a bit... Tell me about your family.",
@@ -45,12 +46,7 @@ var defualtResponses = []string{
 	"How do you feel when you say that?",
 }
 
-var initialMessages = []string{
-	"Hello How are you feeling today?",
-	"How do you do. Please tell me your problem.",
-	"Please tell me what's been bothering you.",
-}
-
+// if user enters one of these messages exits the program
 var quitMessages = []string{
 	"goodbye",
 	"I have to leave",
@@ -59,8 +55,9 @@ var quitMessages = []string{
 	"Our time is up, if you would like to continue that will be another 150 schmeckls.",
 }
 
+// function to parse json file and store its contents into the jsonboject struct
 func parseKeywords() jsonobject {
-	file, err := ioutil.ReadFile("./eliza.json")
+	file, err := ioutil.ReadFile("./eliza.json") // file to read from
 	if err != nil {
 		fmt.Printf("File error: %v\n", err)
 	}
@@ -71,23 +68,23 @@ func parseKeywords() jsonobject {
 	return list
 }
 
-var firstQuestion = false
-
+// I adapted this function from the youtube video tutorials to work with a custom struct
 func askEliza(input string) string {
+	// clean up input
+	input = strings.TrimRight(input, "\n.!")
+	input = strings.ToLower(input)
+	// instantiate new variable with parsed json file values from structs
 	list := parseKeywords()
 
-	if firstQuestion == false {
-		randChoice(initialMessages)
-		firstQuestion = true
-	}
-
+	// if they enter a quit statement then select random quit message from a list
 	if isQuit(input) {
-		return randChoice(quitMessages)
+		os.Exit(1)
 	}
 	// Look for a possible response.
 	for _, response := range list.Keyword {
+		// compile regex pattern from string
 		re := regexp.MustCompile(response.Word)
-		// Check if the user input matches the original, capturing any groups.
+		// Check if the user input matches the pattern, capturing any groups.
 		if matches := re.FindStringSubmatch(input); matches != nil {
 			// Select a random response.
 			output := response.Responses[rand.Intn(len(response.Responses))]
@@ -102,8 +99,9 @@ func askEliza(input string) string {
 				for t, token := range tokens {
 					// Loop through the potential substitutions.
 					for _, substitution := range list.Substitution {
-						// Check if the original of the current substitution matches the token.
+						// compile regex pattern from string
 						sub := regexp.MustCompile(substitution.Word)
+						// if it matches one of the tokens replace with a substitution response
 						if sub.MatchString(token) {
 							// If it matches, replace the token with one of the replacements (at random).
 							// Then break.
@@ -118,10 +116,11 @@ func askEliza(input string) string {
 			return output
 		}
 	}
-	// If there are no matches, then return this generic response.
+	// If there are no matches, then return random respone from a list of default responses.
 	return randChoice(defualtResponses)
 }
 
+// check to see if the user has quit the program
 func isQuit(input string) bool {
 	input = strings.TrimRight(input, "\n.!")
 	input = strings.ToLower(input)
@@ -133,6 +132,7 @@ func isQuit(input string) bool {
 	return false
 }
 
+// get a random number from 0 - 1
 func randChoice(list []string) string {
 	randIndex := rand.Intn(len(list))
 	return list[randIndex]
