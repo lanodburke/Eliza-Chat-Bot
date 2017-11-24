@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <style>
+        body{
+            background-image: url("https://wallpapercave.com/wp/wp1822754.jpg");
+        }
         #mytext {
             border: 0;
             padding: 10px;
@@ -203,12 +206,20 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        var time = 1500;
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[3]; // Note: some voices don't support altering params
+        msg.voiceURI = 'native';
+        msg.volume = 0.5; // 0 to 1
+        msg.rate = 1; // 0.1 to 10
+        msg.pitch = 1.65897689658086; //0 to 2
+        msg.lang = 'en-US';
+
         var me = {};
-        me.avatar = "https://i.pinimg.com/originals/af/25/49/af25490494d3338afef00869c59fdd37.png";
+        me.avatar = "./img/rick.gif";
 
         var you = {};
-        you.avatar = "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png";
+        you.avatar = "./img/morty.gif";
 
         function formatAMPM(date) {
             var hours = date.getHours();
@@ -241,7 +252,7 @@
                     '<div class="msj-rta macro">' +
                     '<div class="text text-r">' +
                     '<p class="text-right">' + text + '</p>' +
-                    '<p class="text-right"><small>' + "Eliza: " + date + '</small></p>' +
+                    '<p class="text-right"><small>' + "Rick: " + date + '</small></p>' +
                     '</div>' +
                     '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="' + you.avatar + '" /></div>' +
                     '</li>';
@@ -264,6 +275,8 @@
                     insertChat("me", text, 200);
                     $.get('/user-input', { value: $('#mytext').val() })
                         .done(function (data) {
+                            msg.text = data
+                            speechSynthesis.speak(msg);
                             insertChat("you", data, 700)
                         })
                     $(this).val('');

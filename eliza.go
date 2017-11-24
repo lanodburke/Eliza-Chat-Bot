@@ -27,14 +27,16 @@ type keyword struct {
 }
 
 var defualtResponses = []string{
-	"Please tell me more.",
-	"Let's change focus a bit... Tell me about your family.",
-	"Can you elaborate on that?",
-	"I see.",
-	"Very interesting.",
-	"I see. And what does that tell you?",
-	"How does that make you feel?",
-	"How do you feel when you say that?",
+	// "Please tell me more.",
+	// "Let's change focus a bit... Tell me about your family.",
+	// "Can you elaborate on that?",
+	// "I see.",
+	"Ohh, man! Ohh, ohhh geez! Ohh... ",
+	"Aww geez Rick, not again!",
+	// "Very interesting.",
+	// "I see. And what does that tell you?",
+	// "How does that make you feel?",
+	// "How do you feel when you say that?",
 }
 
 var initialMessages = []string{
@@ -45,10 +47,10 @@ var initialMessages = []string{
 
 var quitMessages = []string{
 	"goodbye",
-	"I have to leave",
-	"Goodbye",
-	"See ya latar alligator!",
-	"Our time is up, if you would like to continue that will be another $150.",
+	// "I have to leave",
+	// "Goodbye",
+	// "See ya later alligator!",
+	"Our time is up, if you would like to continue that will be another 150 schmeckls.",
 }
 
 var reflections = map[string]string{
@@ -80,11 +82,22 @@ func parseKeywords() keywords {
 	return listKeywords
 }
 
+var firstQuestion = false
+
 func askEliza(input string) string {
 	list := parseKeywords()
 
 	input = strings.TrimRight(input, "\n.!")
 	input = strings.ToLower(input)
+
+	if firstQuestion == false {
+		randChoice(initialMessages)
+		firstQuestion = true
+	}
+
+	if isQuit(input) {
+		return randChoice(quitMessages)
+	}
 
 	for _, responses := range list.Keyword {
 		re := regexp.MustCompile(responses.Word)
@@ -107,6 +120,18 @@ func askEliza(input string) string {
 
 	return randChoice(defualtResponses)
 }
+
+func isQuit(input string) bool {
+	input = strings.TrimRight(input, "\n.!")
+	input = strings.ToLower(input)
+	for _, quit := range quitMessages {
+		if input == quit {
+			return true
+		}
+	}
+	return false
+}
+
 func randChoice(list []string) string {
 	randIndex := rand.Intn(len(list))
 	return list[randIndex]
