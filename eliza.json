@@ -1,7 +1,85 @@
 {
-    "keywords": [
+    "substitutions": [
         {
-            "word": "i need (.*)",
+            "word": "(?i)^i$",
+            "response": "you"
+        },
+        {
+            "word": "(?i)^you$",
+            "response": "I"
+        },
+        {
+            "word": "(?i)^were$",
+            "response": "was"
+        },
+        {
+            "word": "(?i)^am$",
+            "response": "are"
+        },
+        {
+            "word": "(?i)^are$",
+            "response": "am"
+        },
+        {
+            "word": "(?i)^was$",
+            "response": "were"
+        },
+        {
+            "word": "(?i)^were$",
+            "response": "was"
+        },
+        {
+            "word": "(?i)^I'?m$",
+            "response": "you are"
+        },
+        {
+            "word": "(?i)^you'?re$",
+            "response": "I am"
+        },
+        {
+            "word": "(?i)^you$",
+            "response": "me"
+        },
+        {
+            "word": "(?i)^my$",
+            "response": "your"
+        },
+        {
+            "word": "(?i)^[Mm]e$",
+            "response": "you"
+        },
+        {
+            "word": "((?i)^you'?ve$)",
+            "response": "I have"
+        },
+        {
+            "word": "(?i)^you'?ll$",
+            "response": "I will"
+        },
+        {
+            "word": "(?i)^your$",
+            "response": "my"
+        },
+        {
+            "word": "(?i)^yours$",
+            "response": "mine"
+        },
+        {
+            "word": "(?i)^myself$",
+            "response": "yourself"
+        },
+        {
+            "word": "(?i)^any$",
+            "response": "some"
+        },
+        {
+            "word": "(?i)^some$",
+            "response": "any"
+        }
+    ],
+    "responses": [
+        {
+            "word": "(?i)^\\s*I need ([^.!?]*)[.!?]*\\s*$",
             "responses": [
                 "Why do you need %s?",
                 "Would it really help you to get %s?",

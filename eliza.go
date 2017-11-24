@@ -17,8 +17,14 @@ import (
 	"strings"
 )
 
-type keywords struct {
-	Keyword []keyword `json:"keywords"`
+type jsonobject struct {
+	Keyword      []keyword      `json:"responses"`
+	Substitution []substitution `json:"substitutions"`
+}
+
+type substitution struct {
+	Word     string `json:"word"`
+	Response string `json:"response"`
 }
 
 type keyword struct {
@@ -53,42 +59,22 @@ var quitMessages = []string{
 	"Our time is up, if you would like to continue that will be another 150 schmeckls.",
 }
 
-var reflections = map[string]string{
-	"am":     "are",
-	"was":    "were",
-	"i":      "you",
-	"i'd":    "you would",
-	"i've":   "you have",
-	"i'll":   "you will",
-	"my":     "your",
-	"are":    "am",
-	"you've": "I have",
-	"you'll": "I will",
-	"your":   "my",
-	"yours":  "mine",
-	"you":    "me",
-	"me":     "you",
-}
-
-func parseKeywords() keywords {
+func parseKeywords() jsonobject {
 	file, err := ioutil.ReadFile("./eliza.json")
 	if err != nil {
 		fmt.Printf("File error: %v\n", err)
 	}
 
-	listKeywords := keywords{}
-	_ = json.Unmarshal(file, &listKeywords)
+	list := jsonobject{}
+	_ = json.Unmarshal(file, &list)
 
-	return listKeywords
+	return list
 }
 
 var firstQuestion = false
 
 func askEliza(input string) string {
 	list := parseKeywords()
-
-	input = strings.TrimRight(input, "\n.!")
-	input = strings.ToLower(input)
 
 	if firstQuestion == false {
 		randChoice(initialMessages)
@@ -98,26 +84,41 @@ func askEliza(input string) string {
 	if isQuit(input) {
 		return randChoice(quitMessages)
 	}
-
-	for _, responses := range list.Keyword {
-		re := regexp.MustCompile(responses.Word)
-		matches := re.FindStringSubmatch(input)
-
-		if len(matches) > 0 {
-			var frag string
-			if len(matches) > 1 {
-				frag = reflection(matches[1])
+	// Look for a possible response.
+	for _, response := range list.Keyword {
+		re := regexp.MustCompile(response.Word)
+		// Check if the user input matches the original, capturing any groups.
+		if matches := re.FindStringSubmatch(input); matches != nil {
+			// Select a random response.
+			output := response.Responses[rand.Intn(len(response.Responses))]
+			// We'll tokenise the captured groups using the following regular expression.
+			boundaries := regexp.MustCompile(`[\s,.?!]+`)
+			// Fill the response with each captured group from the input.
+			// This is a bit complex, because we have to reflect the pronouns.
+			for _, match := range matches[1:] {
+				// First split the captured group into tokens.
+				tokens := boundaries.Split(match, -1)
+				// Loop through the tokens.
+				for t, token := range tokens {
+					// Loop through the potential substitutions.
+					for _, substitution := range list.Substitution {
+						// Check if the original of the current substitution matches the token.
+						sub := regexp.MustCompile(substitution.Word)
+						if sub.MatchString(token) {
+							// If it matches, replace the token with one of the replacements (at random).
+							// Then break.
+							tokens[t] = substitution.Response
+							break
+						}
+					}
+				}
+				output = strings.Replace(output, "%s", strings.Join(tokens, " "), -1)
 			}
-
-			response := randChoice(responses.Responses)
-			if strings.Contains(response, "%s") {
-				response = fmt.Sprintf(response, frag)
-			}
-
-			return response
+			// Send the filled answer back.
+			return output
 		}
 	}
-
+	// If there are no matches, then return this generic response.
 	return randChoice(defualtResponses)
 }
 
@@ -135,16 +136,6 @@ func isQuit(input string) bool {
 func randChoice(list []string) string {
 	randIndex := rand.Intn(len(list))
 	return list[randIndex]
-}
-
-func reflection(input string) string {
-	s := strings.Split(input, " ")
-	for i, str := range s {
-		if reflected, ok := reflections[str]; ok {
-			s[i] = reflected
-		}
-	}
-	return strings.Join(s, " ")
 }
 
 func chatWindow(w http.ResponseWriter, r *http.Request) {
