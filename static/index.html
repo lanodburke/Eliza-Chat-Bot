@@ -11,9 +11,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <style>
-        body{
-            background-image: url("https://wallpapercave.com/wp/wp1822754.jpg");
+        body {
+            background: url(./img/backgroundimg.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
+
         #mytext {
             border: 0;
             padding: 10px;
@@ -85,6 +90,7 @@
             height: 500px;
             overflow: hidden;
             padding: 0;
+            opacity: 0.93;
         }
 
         .frame>div:last-of-type {
@@ -252,7 +258,7 @@
                     '<div class="msj-rta macro">' +
                     '<div class="text text-r">' +
                     '<p class="text-right">' + text + '</p>' +
-                    '<p class="text-right"><small>' + "Rick: " + date + '</small></p>' +
+                    '<p class="text-right"><small>' + "Morty: " + date + '</small></p>' +
                     '</div>' +
                     '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="' + you.avatar + '" /></div>' +
                     '</li>';

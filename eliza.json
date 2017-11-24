@@ -184,6 +184,141 @@
                 "If I could %s, then what?",
                 "Why do you ask if I can %s?"
             ]
+        },
+        {
+            "word": "(.*)dream(.*)",
+            "responses": [
+                "Tell me more about your dream."
+            ]
+        },
+        {
+            "word": "can I ([^\\?]*)\\??",
+            "responses": [
+                "Perhaps you don't want to %s.",
+                "Do you want to be able to %s?",
+                "If you could %s, would you?"
+            ]
+        },
+        {
+            "word": "you are (.*)",
+            "responses": [
+                "Why do you think I am %s?",
+                "Does it please you to think that I'm %s?",
+                "Perhaps you would like me to be %s.",
+                "Perhaps you're really talking about yourself?"
+            ]
+        },
+        {
+            "word": "i don'?t (.*)",
+            "responses": [
+                "Don't you really %s?",
+                "Why don't you %s?",
+                "Do you want to %s?"
+            ]
+        },
+        {
+            "word": "i feel (.*)",
+            "responses": [
+                "Good, tell me more about these feelings.",
+                "Do you often feel %s?",
+                "When do you usually feel %s?",
+                "When you feel %s, what do you do?"
+            ]
+        },
+        {
+            "word": "i have (.*)",
+            "responses": [
+                "Why do you tell me that you've %s?",
+                "Have you really %s?",
+                "Now that you have %s, what will you do next?"
+            ]
+        },
+        {
+            "word": "i would (.*)",
+            "responses": [
+                "Could you explain why you would %s?",
+                "Why would you %s?",
+                "Who else knows that you would %s?"
+            ]
+        },
+        {
+            "word": "is there (.*)",
+            "responses": [
+                "Do you think there is %s?",
+                "It's likely that there is %s.",
+                "Would you like there to be %s?"
+            ]
+        },
+        {
+            "word": "my (.*)",
+            "responses": [
+                "I see, your %s.",
+                "Why do you say that your %s?",
+                "When your %s, how do you feel?"
+            ]
+        },
+        {
+            "word": "you (.*)",
+            "responses": [
+                "We should be discussing you, not me.",
+                "Why do you say that about me?",
+                "Why do you care whether I %s?"
+            ]
+        },
+        {
+            "word": "why (.*)",
+            "responses": [
+                "Why don't you tell me the reason why %s?",
+                "Why do you think %s?"
+            ]
+        },
+        {
+            "word": "i want (.*)",
+            "responses": [
+                "What would it mean to you if you got %s?",
+                "Why do you want %s?",
+                "What would you do if you got %s?",
+                "If you got %s, then what would you do?"
+            ]
+        },
+        {
+            "word": "(.*) mother(.*)",
+            "responses": [
+                "Tell me more about your mother.",
+                "What was your relationship with your mother like?",
+                "How do you feel about your mother?",
+                "How does this relate to your feelings today?",
+                "Good family relations are important."
+            ]
+        },
+        {
+            "word": "(.*) father(.*)",
+            "responses": [
+                "Tell me more about your father.",
+                "How did your father make you feel?",
+                "How do you feel about your father?",
+                "Does your relationship with your father relate to your feelings today?",
+                "Do you have trouble showing affection with your family?"
+            ]
+        },
+        {
+            "word": "(.*) child(.*)",
+            "responses": [
+                "Did you have close friends as a child?",
+                "What is your favorite childhood memory?",
+                "Do you remember any dreams or nightmares from childhood?",
+                "Did the other children sometimes tease you?",
+                "How do you think your childhood experiences relate to your feelings today?"
+            ]
+        },
+        {
+            "word": "(.*)\\?",
+            "responses": [
+                "Why do you ask that?",
+                "Please consider whether you can answer your own question.",
+                "Perhaps the answer lies within yourself?",
+                "Why don't you tell me?"
+            ]
         }
     ]
 }

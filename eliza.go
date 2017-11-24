@@ -27,16 +27,16 @@ type keyword struct {
 }
 
 var defualtResponses = []string{
-	// "Please tell me more.",
-	// "Let's change focus a bit... Tell me about your family.",
-	// "Can you elaborate on that?",
-	// "I see.",
+	"Please tell me more.",
+	"Let's change focus a bit... Tell me about your family.",
+	"Can you elaborate on that?",
+	"I see.",
 	"Ohh, man! Ohh, ohhh geez! Ohh... ",
 	"Aww geez Rick, not again!",
-	// "Very interesting.",
-	// "I see. And what does that tell you?",
-	// "How does that make you feel?",
-	// "How do you feel when you say that?",
+	"Very interesting.",
+	"I see. And what does that tell you?",
+	"How does that make you feel?",
+	"How do you feel when you say that?",
 }
 
 var initialMessages = []string{
@@ -47,9 +47,9 @@ var initialMessages = []string{
 
 var quitMessages = []string{
 	"goodbye",
-	// "I have to leave",
-	// "Goodbye",
-	// "See ya later alligator!",
+	"I have to leave",
+	"Goodbye",
+	"See ya later alligator!",
 	"Our time is up, if you would like to continue that will be another 150 schmeckls.",
 }
 
